@@ -1,11 +1,3 @@
---[[
-This UI is edited because FNB devs were able to detect the UI, and so I decided to make a few changes.
-
-Changelogs:
-(04/28/22)
-- More security
-]]
-
 local library = {flags = {}, windows = {}, open = true}
 
 --Services
