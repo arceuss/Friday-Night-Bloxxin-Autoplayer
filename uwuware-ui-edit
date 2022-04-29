@@ -1666,9 +1666,7 @@ local UnlockMouse
 function library:Init()
     
     self.base = self.base or self:Create("ScreenGui")
-    self.base.Name = game:GetService("HttpService"):GenerateGUID()
-    self.base.Parent = game:GetService("CoreGui")
-    --[[if (syn and syn.protect_gui) then
+    if (syn and syn.protect_gui) then
         syn.protect_gui(self.base)
         self.base.Parent = game:GetService"CoreGui"
     elseif type(get_hidden_gui) == 'function' then
@@ -1676,9 +1674,9 @@ function library:Init()
     elseif type(gethui) == 'function' then
         self.base.Parent = gethui()
     else
-        self.base.Name = tostring(math.random())
+        self.base.Name = game:GetService("HttpService"):GenerateGUID()
         self.base.Parent = game:GetService"CoreGui"
-    end]]
+    end
     
     
     self.cursor = self.cursor or self:Create("Frame", {
