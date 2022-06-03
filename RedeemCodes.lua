@@ -90,6 +90,12 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Text = "Points have been given.";
 	Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
 Duration = 16;
+RedeemRem:InvokeServer("INDIECROSS")
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "Notification";
+	Text = "Points have been given.";
+	Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
+Duration = 16;
 
 setclipboard("discord.gg/tU87b6w")
 
