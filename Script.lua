@@ -14,6 +14,9 @@ local PlayerGui = Client:WaitForChild("PlayerGui")
 local InputFolder = Client:WaitForChild("Input")
 local Keybinds = InputFolder:WaitForChild("Keybinds")
 
+local OldNameCall
+local LP = Players.LocalPlayer
+
 local Marked = {}
 
 local KeysTable = {
@@ -24,15 +27,16 @@ local KeysTable = {
 }
 
 RunService.Heartbeat:Connect(function()
-    for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerScripts:GetDescendants()) do
-      if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
-        v:Destroy()
-    end
+    for i,v in pairs(game.Players.LocalPlayer.PlayerScripts:GetDescendants()) do
+        if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
+            v:Destroy()
+        end
     end
 
     if not Library.flags.AutoPlayer then return end
     if not Menu or not Menu.Parent then return end
     local InputManager = game:GetService("VirtualInputManager")
+    
     if Menu.Config.TimePast.Value <= 0 then return end
     
     local SideMenu = Menu.Game:FindFirstChild(Menu.PlayerSide.Value)
@@ -57,11 +61,13 @@ RunService.Heartbeat:Connect(function()
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
             if Difference <= 0.35 and not IsHell then
+                if not SN then
                 Marked[#Marked + 1] = Object
                 
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                 repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
                 InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+            end
             end
         end
     end
@@ -91,7 +97,7 @@ do
         if debug == true then
         Window:AddButton({text = "Rejoin", callback = function()
             pcall(function()
-                game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game:GetService("Players").LocalPlayer)
+                game:GetService'TeleportService':TeleportToPlaceInstance(game.PlaceId,game.JobId,game:GetService'Players'.LocalPlayer)
             end)
         end})
         end
@@ -126,3 +132,11 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     
     return Old(self, ...)
 end))
+
+OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...) 
+    local method = getnamecallmethod()
+    if method == "Kick" and Self == LP then 
+        return
+    end
+    return OldNameCall(Self, ...)
+end)
