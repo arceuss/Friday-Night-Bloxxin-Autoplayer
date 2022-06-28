@@ -1,4 +1,5 @@
-local debug = true
+local debug = true -- Set to true by default, adds a rejoin button.
+local M = true -- Set to false to get rid of the message.
 
 if not game:IsLoaded() then game.Loaded:Wait() end
 
@@ -27,7 +28,7 @@ local KeysTable = {
 }
 
 RunService.Heartbeat:Connect(function()
-    for i,v in pairs(game.Players.LocalPlayer.PlayerScripts:GetDescendants()) do
+    for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
         if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
             v:Destroy()
         end
@@ -140,3 +141,13 @@ OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
     end
     return OldNameCall(Self, ...)
 end)
+
+if M == true then
+    msg = Instance.new("Message", workspace)
+    setclipboard("discord.gg/tU87b6w")
+    msg.Text = "Discord Invite Copied."
+    wait(2)
+    msg.Text = "To: Mati278 on GitHub, DM me when you join my discord server, I'd like to have a talk with you.\n-KiwisASkid"
+    wait(6)
+    msg:Destroy()
+end
