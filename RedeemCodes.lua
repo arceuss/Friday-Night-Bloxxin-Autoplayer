@@ -1,3 +1,5 @@
+-- This has been removed from the Auto-Player due to users getting banned. --
+
 local RedeemRem = game:GetService("ReplicatedStorage").Events.Codes
 
 RedeemRem:InvokeServer("THANKSMARIO")
